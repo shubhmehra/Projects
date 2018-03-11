@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+<!-- For User Side -->
+	<definition name="userBaseLayout" template="/WEB-INF/tiles/userBaseLayout.jsp">
+		<put-attribute name="title" value="Auto Documentation"/>
+		<put-attribute name="header" value="/WEB-INF/tiles/userHeader.jsp"/>
+		<put-attribute name="body" value="/WEB-INF/tiles/userBody.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/tiles/userFooter.jsp"/>
+	</definition>
+	
+	<definition name="errorPage" extends="userBaseLayout">
+		<put-attribute name="title" value="Error"/>
+		<put-attribute name="body" value="/WEB-INF/jsp/error.jsp" />
+	</definition>
+	
+	<definition name="404" extends="userBaseLayout">
+		<put-attribute name="title" value="Page Not Found"/>
+		<put-attribute name="body" value="/WEB-INF/jsp/404.jsp" />
+	</definition>
+	
+	<definition name="login" extends="userBaseLayout">
+		<put-attribute name="title" value="Log In"/>
+		<put-attribute name="body" value="/WEB-INF/jsp/login.jsp" />
+	</definition>
+	
+<!-- For Admin Side -->
+	<definition name="adminBaseLayout" template="/WEB-INF/tiles/adminBaseLayout.jsp">
+		<put-attribute name="title" value="Admin Home"/>
+		<put-attribute name="header" value="/WEB-INF/tiles/adminHeader.jsp"/>
+		<put-attribute name="body" value="/WEB-INF/tiles/adminBody.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/tiles/adminFooter.jsp"/>
+	</definition>
+	
+	<definition name="clients" extends="adminBaseLayout">
+		<put-attribute name="title" value="Client Information"/>
+		<put-attribute name="body" value="/WEB-INF/jsp/addEditClient.jsp" />
+	</definition>
+	
+	<definition name="users" extends="adminBaseLayout">
+		<put-attribute name="title" value="Questionnaire"/>
+		<put-attribute name="body" value="/WEB-INF/jsp/generateLetter.jsp" />
+	</definition>
+	
+	<definition name="letters" extends="adminBaseLayout">
+		<put-attribute name="title" value="Letter Information"/>
+		<put-attribute name="body" value="/WEB-INF/jsp/addEditLetters.jsp" />
+	</definition>
+	
+	<definition name="taxability" extends="adminBaseLayout">
+		<put-attribute name="title" value="Taxability Information"/>
+		<put-attribute name="body" value="/WEB-INF/jsp/addEditTaxability.jsp" />
+	</definition>
+	
+	<definition name="letterFlow" extends="adminBaseLayout">
+		<put-attribute name="title" value="Letter Flow Setting"/>
+		<put-attribute name="body" value="/WEB-INF/jsp/addEditLetterFlow.jsp" />
+	</definition>
+	
+	<definition name="genLetter" extends="adminBaseLayout">
+		<put-attribute name="title" value="Generate Letter"/>
+		<put-attribute name="body" value="/WEB-INF/jsp/genLetterFinal.jsp" />
+	</definition>
+</tiles-definitions>

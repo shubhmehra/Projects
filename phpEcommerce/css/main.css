@@ -1,0 +1,80 @@
+body{
+   padding-top: 50px;
+}
+
+#headerWrapper{
+/*   we need to absolute position other image eithin this
+     look for css position stuff on youtube
+*/
+    position: relative;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;/*This will hide fore-flower & back-flower image under absolute*/
+    height: 600px;
+    background-image: url("../images/headerlogo/background.png");
+    background-repeat: no-repeat;
+    background-size: 100% 700px;
+    background-position: top center;
+    background-attachment: fixed; /*BG will be fixed no scrolling of image . image will stay at its place*/
+}
+
+#logotext{
+    position: absolute;/*absolute will look for parent relative position*/
+    width: 100%;
+    height: 180px;
+    background-image: url(../images/headerlogo/imageedit_3_9324170809.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    -webkit-background-size: 70% 180px;
+    top: 50%;
+    margin-top: -90px;
+}
+
+#fore-flower{
+    position: absolute;
+    width: 100%;
+    height: 400px;
+    background-image: url(../images/headerlogo/fore-flower.png);
+    background-size: auto 400px;
+    background-repeat: no-repeat;
+    background-position: right bottom;
+    top: 525px;
+    right: -50px;
+}
+
+#back-flower{
+    position: absolute;
+    width: 100%;
+    height: 350px;
+    background-image: url(../images/headerlogo/back-flower.png);
+    background-position: left bottom;
+    background-repeat: no-repeat;
+    background-size: auto 350px;
+    top: 400px;
+    left: -25px;
+}
+
+.img-thumb{
+    width: auto;
+    height: 200px;
+}
+
+.footer {
+    margin-top: 50px;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: black;
+    text-align: center;
+}
+
+div.col-sm-6 div.center-block img.details {
+    display: block;
+   margin-left: auto;
+   margin-right: auto;
+}
+
+.table-auto{
+  widows: auto;
+  margin: 0 auto;
+}

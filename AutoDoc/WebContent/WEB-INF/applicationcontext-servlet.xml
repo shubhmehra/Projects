@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd
+    http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+	
+	<aop:aspectj-autoproxy/>
+	<context:annotation-config/>
+	<context:component-scan base-package="org.AutoDoc.controller"></context:component-scan>
+	<!-- <aop:aspectj-autoproxy proxy-target-class="true"/> -->
+	
+	<!-- <context:component-scan base-package="org.AutoDoc.controller"></context:component-scan>
+    <aop:aspectj-autoproxy/> -->
+	
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		 <property name="location"><value>classpath:resources/dbConfig.properties</value></property>
+	</bean>
+	
+	<!-- Hibernate Configuration -->
+	<bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}"/>
+		<property name="password" value="${jdbc.password}"/>
+	</bean>
+	
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">  
+		<property name="dataSource" ref="myDataSource"></property>  
+	</bean> 
+	
+	<bean id="mySessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="myDataSource" />
+		
+		<property name="annotatedClasses">
+			<list>
+				<value>org.AutoDoc.entity.ClientInfo</value>
+				<value>org.AutoDoc.entity.CountryDetails</value>
+				<value>org.AutoDoc.entity.GeneratedLtr</value>
+				<value>org.AutoDoc.entity.LettersInformation</value>
+				<value>org.AutoDoc.entity.PopulatedLettersInfo</value>
+				<value>org.AutoDoc.entity.QATemplates</value>
+				<value>org.AutoDoc.entity.UserInfo</value>
+				<value>org.AutoDoc.entity.UserRole</value>
+			</list>
+		</property>
+		
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.connection.provider_class">${jdbc.boneCP}</prop>
+				<prop key="hibernate.dialect">${jdbc.myPostgreSQLDialect}</prop>
+				<prop key="hibernate.connection.driver_class">${jdbc.driverClassName}</prop>
+				<prop key="hibernate.connection.url">${jdbc.url}</prop>
+				<prop key="hibernate.connection.username">${jdbc.username}</prop>
+				<prop key="hibernate.connection.password">${jdbc.password}</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<constructor-arg ref="mySessionFactory" />
+	</bean>
+	
+	<!-- list of bean definations -->
+	<bean id="ClientServiceImpl" class="org.AutoDoc.serviceimpl.ClientServiceImpl"></bean>
+	<bean id="ClientDaoImpl" class="org.AutoDoc.daoimpl.ClientDaoImpl"></bean>
+	
+	
+	<bean id="LetterServiceImpl" class="org.AutoDoc.serviceimpl.LetterServiceImpl"></bean>
+	<bean id="LetterDaoImpl" class="org.AutoDoc.daoimpl.LetterDaoImpl"></bean>
+	
+	<bean id="JsonMapper" class="org.AutoDoc.handler.JsonMapper"></bean>
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="cacheSeconds" value="0"/>
+	</bean>
+	
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView" />
+	</bean>
+	
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="100000" />
+    </bean>
+    
+	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer" p:definitions="/WEB-INF/tiles-definitions.xml" />
+</beans>
